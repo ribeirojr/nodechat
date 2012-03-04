@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head>
+    <title>Chat</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+
+	$(document).ready(function() {
+			
+		var socket = io.connect();
+		
+		socket.on('message', function(data){
+			$('#log ul').append('<li>'+ data +'</li>');	
+		});
+		
+				
+		socket.on('welcome', function(data){
+			$('#log ul').append('<li>'+ data +'</li>');	
+		});
+		
+
+		socket.on('currentUsers', function(data){
+			$('#users ul').html(data);	
+		});
+
+		
+		var entry_el = $('#entry');
+        
+        entry_el.keypress(function(event) {
+          if (event.keyCode != 13) return;
+          var msg = entry_el.attr('value');
+          if (msg) {
+            socket.emit('message', msg);
+            entry_el.attr('value', '');
+          }
+        });
+	});
+	
+    </script>
+  </head>
+  <body>
+    <h1>Chat</h1>
+    <div id="log"><ul></ul></div>
+    <div id="users"><ul></ul></div>
+    <div id="console">
+      <input type="text" id="entry" />
+    </div>
+  </body>
+</html>

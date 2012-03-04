@@ -1,0 +1,14 @@
+{
+  "name": "NodeChat",
+  "subdomain": "negao",
+  "scripts": {
+    "start": "chat.js"
+  },
+  "version": "0.0.0-1",
+  "engines": {
+    "node": "v0.6.x"
+  },
+  "dependencies": {
+    "socket.io": "0.8.x"
+  }
+}
